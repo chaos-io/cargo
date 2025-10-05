@@ -8,6 +8,7 @@ package cargo
 
 import (
 	context "context"
+	cargo "github.com/chaos-io/cargo/genproto/cargo"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -19,163 +20,237 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	CargoService_GetCargo_FullMethodName     = "/cargo.v1.CargoService/GetCargo"
-	CargoService_CreateCargo_FullMethodName  = "/cargo.v1.CargoService/CreateCargo"
-	CargoService_HandingEvent_FullMethodName = "/cargo.v1.CargoService/HandingEvent"
+	Cargo_CreateResource_FullMethodName = "/cargo.v1.Cargo/CreateResource"
+	Cargo_GetResource_FullMethodName    = "/cargo.v1.Cargo/GetResource"
+	Cargo_ListResources_FullMethodName  = "/cargo.v1.Cargo/ListResources"
+	Cargo_UpdateResource_FullMethodName = "/cargo.v1.Cargo/UpdateResource"
+	Cargo_DeleteResource_FullMethodName = "/cargo.v1.Cargo/DeleteResource"
 )
 
-// CargoServiceClient is the client API for CargoService service.
+// CargoClient is the client API for Cargo service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type CargoServiceClient interface {
-	GetCargo(ctx context.Context, in *GetCargoReq, opts ...grpc.CallOption) (*GetCargoResp, error)
-	CreateCargo(ctx context.Context, in *CreateCargoReq, opts ...grpc.CallOption) (*CreateCargoResp, error)
-	HandingEvent(ctx context.Context, in *HandingEventReq, opts ...grpc.CallOption) (*HandingEventResp, error)
+type CargoClient interface {
+	CreateResource(ctx context.Context, in *CreateResourceRequest, opts ...grpc.CallOption) (*cargo.Resource, error)
+	GetResource(ctx context.Context, in *GetResourceRequest, opts ...grpc.CallOption) (*cargo.Resource, error)
+	ListResources(ctx context.Context, in *ListResourcesRequest, opts ...grpc.CallOption) (*ListResourcesResponse, error)
+	UpdateResource(ctx context.Context, in *UpdateResourceRequest, opts ...grpc.CallOption) (*cargo.Resource, error)
+	DeleteResource(ctx context.Context, in *DeleteResourceRequest, opts ...grpc.CallOption) (*DeleteResourceResponse, error)
 }
 
-type cargoServiceClient struct {
+type cargoClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewCargoServiceClient(cc grpc.ClientConnInterface) CargoServiceClient {
-	return &cargoServiceClient{cc}
+func NewCargoClient(cc grpc.ClientConnInterface) CargoClient {
+	return &cargoClient{cc}
 }
 
-func (c *cargoServiceClient) GetCargo(ctx context.Context, in *GetCargoReq, opts ...grpc.CallOption) (*GetCargoResp, error) {
-	out := new(GetCargoResp)
-	err := c.cc.Invoke(ctx, CargoService_GetCargo_FullMethodName, in, out, opts...)
+func (c *cargoClient) CreateResource(ctx context.Context, in *CreateResourceRequest, opts ...grpc.CallOption) (*cargo.Resource, error) {
+	out := new(cargo.Resource)
+	err := c.cc.Invoke(ctx, Cargo_CreateResource_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *cargoServiceClient) CreateCargo(ctx context.Context, in *CreateCargoReq, opts ...grpc.CallOption) (*CreateCargoResp, error) {
-	out := new(CreateCargoResp)
-	err := c.cc.Invoke(ctx, CargoService_CreateCargo_FullMethodName, in, out, opts...)
+func (c *cargoClient) GetResource(ctx context.Context, in *GetResourceRequest, opts ...grpc.CallOption) (*cargo.Resource, error) {
+	out := new(cargo.Resource)
+	err := c.cc.Invoke(ctx, Cargo_GetResource_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *cargoServiceClient) HandingEvent(ctx context.Context, in *HandingEventReq, opts ...grpc.CallOption) (*HandingEventResp, error) {
-	out := new(HandingEventResp)
-	err := c.cc.Invoke(ctx, CargoService_HandingEvent_FullMethodName, in, out, opts...)
+func (c *cargoClient) ListResources(ctx context.Context, in *ListResourcesRequest, opts ...grpc.CallOption) (*ListResourcesResponse, error) {
+	out := new(ListResourcesResponse)
+	err := c.cc.Invoke(ctx, Cargo_ListResources_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// CargoServiceServer is the server API for CargoService service.
-// All implementations must embed UnimplementedCargoServiceServer
+func (c *cargoClient) UpdateResource(ctx context.Context, in *UpdateResourceRequest, opts ...grpc.CallOption) (*cargo.Resource, error) {
+	out := new(cargo.Resource)
+	err := c.cc.Invoke(ctx, Cargo_UpdateResource_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *cargoClient) DeleteResource(ctx context.Context, in *DeleteResourceRequest, opts ...grpc.CallOption) (*DeleteResourceResponse, error) {
+	out := new(DeleteResourceResponse)
+	err := c.cc.Invoke(ctx, Cargo_DeleteResource_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// CargoServer is the server API for Cargo service.
+// All implementations must embed UnimplementedCargoServer
 // for forward compatibility
-type CargoServiceServer interface {
-	GetCargo(context.Context, *GetCargoReq) (*GetCargoResp, error)
-	CreateCargo(context.Context, *CreateCargoReq) (*CreateCargoResp, error)
-	HandingEvent(context.Context, *HandingEventReq) (*HandingEventResp, error)
-	mustEmbedUnimplementedCargoServiceServer()
+type CargoServer interface {
+	CreateResource(context.Context, *CreateResourceRequest) (*cargo.Resource, error)
+	GetResource(context.Context, *GetResourceRequest) (*cargo.Resource, error)
+	ListResources(context.Context, *ListResourcesRequest) (*ListResourcesResponse, error)
+	UpdateResource(context.Context, *UpdateResourceRequest) (*cargo.Resource, error)
+	DeleteResource(context.Context, *DeleteResourceRequest) (*DeleteResourceResponse, error)
+	mustEmbedUnimplementedCargoServer()
 }
 
-// UnimplementedCargoServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedCargoServiceServer struct {
+// UnimplementedCargoServer must be embedded to have forward compatible implementations.
+type UnimplementedCargoServer struct {
 }
 
-func (UnimplementedCargoServiceServer) GetCargo(context.Context, *GetCargoReq) (*GetCargoResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCargo not implemented")
+func (UnimplementedCargoServer) CreateResource(context.Context, *CreateResourceRequest) (*cargo.Resource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateResource not implemented")
 }
-func (UnimplementedCargoServiceServer) CreateCargo(context.Context, *CreateCargoReq) (*CreateCargoResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateCargo not implemented")
+func (UnimplementedCargoServer) GetResource(context.Context, *GetResourceRequest) (*cargo.Resource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetResource not implemented")
 }
-func (UnimplementedCargoServiceServer) HandingEvent(context.Context, *HandingEventReq) (*HandingEventResp, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method HandingEvent not implemented")
+func (UnimplementedCargoServer) ListResources(context.Context, *ListResourcesRequest) (*ListResourcesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListResources not implemented")
 }
-func (UnimplementedCargoServiceServer) mustEmbedUnimplementedCargoServiceServer() {}
+func (UnimplementedCargoServer) UpdateResource(context.Context, *UpdateResourceRequest) (*cargo.Resource, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateResource not implemented")
+}
+func (UnimplementedCargoServer) DeleteResource(context.Context, *DeleteResourceRequest) (*DeleteResourceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteResource not implemented")
+}
+func (UnimplementedCargoServer) mustEmbedUnimplementedCargoServer() {}
 
-// UnsafeCargoServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to CargoServiceServer will
+// UnsafeCargoServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to CargoServer will
 // result in compilation errors.
-type UnsafeCargoServiceServer interface {
-	mustEmbedUnimplementedCargoServiceServer()
+type UnsafeCargoServer interface {
+	mustEmbedUnimplementedCargoServer()
 }
 
-func RegisterCargoServiceServer(s grpc.ServiceRegistrar, srv CargoServiceServer) {
-	s.RegisterService(&CargoService_ServiceDesc, srv)
+func RegisterCargoServer(s grpc.ServiceRegistrar, srv CargoServer) {
+	s.RegisterService(&Cargo_ServiceDesc, srv)
 }
 
-func _CargoService_GetCargo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCargoReq)
+func _Cargo_CreateResource_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateResourceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CargoServiceServer).GetCargo(ctx, in)
+		return srv.(CargoServer).CreateResource(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CargoService_GetCargo_FullMethodName,
+		FullMethod: Cargo_CreateResource_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CargoServiceServer).GetCargo(ctx, req.(*GetCargoReq))
+		return srv.(CargoServer).CreateResource(ctx, req.(*CreateResourceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CargoService_CreateCargo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateCargoReq)
+func _Cargo_GetResource_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetResourceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CargoServiceServer).CreateCargo(ctx, in)
+		return srv.(CargoServer).GetResource(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CargoService_CreateCargo_FullMethodName,
+		FullMethod: Cargo_GetResource_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CargoServiceServer).CreateCargo(ctx, req.(*CreateCargoReq))
+		return srv.(CargoServer).GetResource(ctx, req.(*GetResourceRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _CargoService_HandingEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(HandingEventReq)
+func _Cargo_ListResources_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListResourcesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(CargoServiceServer).HandingEvent(ctx, in)
+		return srv.(CargoServer).ListResources(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: CargoService_HandingEvent_FullMethodName,
+		FullMethod: Cargo_ListResources_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CargoServiceServer).HandingEvent(ctx, req.(*HandingEventReq))
+		return srv.(CargoServer).ListResources(ctx, req.(*ListResourcesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// CargoService_ServiceDesc is the grpc.ServiceDesc for CargoService service.
+func _Cargo_UpdateResource_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateResourceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CargoServer).UpdateResource(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Cargo_UpdateResource_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CargoServer).UpdateResource(ctx, req.(*UpdateResourceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Cargo_DeleteResource_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteResourceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CargoServer).DeleteResource(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Cargo_DeleteResource_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CargoServer).DeleteResource(ctx, req.(*DeleteResourceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Cargo_ServiceDesc is the grpc.ServiceDesc for Cargo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var CargoService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "cargo.v1.CargoService",
-	HandlerType: (*CargoServiceServer)(nil),
+var Cargo_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "cargo.v1.Cargo",
+	HandlerType: (*CargoServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetCargo",
-			Handler:    _CargoService_GetCargo_Handler,
+			MethodName: "CreateResource",
+			Handler:    _Cargo_CreateResource_Handler,
 		},
 		{
-			MethodName: "CreateCargo",
-			Handler:    _CargoService_CreateCargo_Handler,
+			MethodName: "GetResource",
+			Handler:    _Cargo_GetResource_Handler,
 		},
 		{
-			MethodName: "HandingEvent",
-			Handler:    _CargoService_HandingEvent_Handler,
+			MethodName: "ListResources",
+			Handler:    _Cargo_ListResources_Handler,
+		},
+		{
+			MethodName: "UpdateResource",
+			Handler:    _Cargo_UpdateResource_Handler,
+		},
+		{
+			MethodName: "DeleteResource",
+			Handler:    _Cargo_DeleteResource_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
