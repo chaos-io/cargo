@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package cargo.v1;
+
+import "google/api/annotations.proto";
+import "cargo/cargo.proto";
+
+option go_package = "github.com/chaos-io/cargo/genproto/cargo/v1;cargo";
+
+service CargoService {
+  rpc GetCargo(GetCargoReq) returns (GetCargoResp) {
+    option (google.api.http) = {
+      get: "/cargo/v1/cargo/{tracking_id}"
+    };
+  }
+
+  rpc CreateCargo(CreateCargoReq) returns (CreateCargoResp) {
+    option (google.api.http) = {
+      post: "/cargo/v1/cargo"
+    };
+  }
+
+  rpc HandingEvent(HandingEventReq) returns (HandingEventResp) {
+    option (google.api.http) = {
+      post: "/cargo/v1/event"
+    };
+  }
+}
+
+message GetCargoReq {
+  string tracking_id = 1;
+  string customer_id = 2;
+}
+
+message GetCargoResp {
+  Cargo cargo = 1;
+}
+
+message CreateCargoReq {
+  Cargo cargo = 1;
+}
+
+message CreateCargoResp {
+  string tracking_id = 1;
+}
+
+message HandingEventReq {
+  HandlingEvent event = 1;
+}
+
+message HandingEventResp {
+  string id = 1;
+}

@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package cargo;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/chaos-io/cargo/genproto/cargo;cargo";
+
+message Cargo {
+  string tracking_id = 1;
+  string customer_id = 2;
+
+  Customer Shipper = 5;
+  Customer Consignee = 6;
+
+  DeliverySpecification Spec = 10;
+}
+
+message Customer {
+  string id = 1;
+  string name = 2;
+}
+
+message DeliverySpecification {
+  string id = 1;
+
+  Location From = 5;
+  Location To = 6;
+
+  google.protobuf.Timestamp ETA = 10;
+}
+
+message Location {
+  string port = 1;
+  string city = 2;
+}
+
+message CarrierMovement {
+  string schedule_id = 1;
+
+  Location from = 5;
+  Location to = 6;
+}
+
+message DeliveryHistory {
+  string id = 1;
+  string type = 2;
+  string cargo_id = 3;
+  string schedule_id = 4;
+  google.protobuf.Timestamp CompleteTime = 5;
+}
+
+message HandlingEvent {
+  Cargo cargo = 1;
+
+  string event_type = 5;
+  google.protobuf.Timestamp CompleteTime = 6;
+
+  CarrierMovement movement = 10;
+}

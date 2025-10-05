@@ -1,0 +1,439 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "cargo/v1/cargo.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "CargoService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/cargo/v1/cargo": {
+      "post": {
+        "operationId": "CargoService_CreateCargo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1CreateCargoResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "cargo.trackingId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cargo.customerId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cargo.Shipper.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cargo.Shipper.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cargo.Consignee.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cargo.Consignee.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cargo.Spec.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cargo.Spec.From.port",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cargo.Spec.From.city",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cargo.Spec.To.port",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cargo.Spec.To.city",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cargo.Spec.ETA",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          }
+        ],
+        "tags": [
+          "CargoService"
+        ]
+      }
+    },
+    "/cargo/v1/cargo/{trackingId}": {
+      "get": {
+        "operationId": "CargoService_GetCargo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1GetCargoResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "trackingId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "customerId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CargoService"
+        ]
+      }
+    },
+    "/cargo/v1/event": {
+      "post": {
+        "operationId": "CargoService_HandingEvent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1HandingEventResp"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "event.cargo.trackingId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.cargo.customerId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.cargo.Shipper.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.cargo.Shipper.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.cargo.Consignee.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.cargo.Consignee.name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.cargo.Spec.id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.cargo.Spec.From.port",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.cargo.Spec.From.city",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.cargo.Spec.To.port",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.cargo.Spec.To.city",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.cargo.Spec.ETA",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "event.eventType",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.CompleteTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "event.movement.scheduleId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.movement.from.port",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.movement.from.city",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.movement.to.port",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "event.movement.to.city",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CargoService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "cargoCargo": {
+      "type": "object",
+      "properties": {
+        "trackingId": {
+          "type": "string"
+        },
+        "customerId": {
+          "type": "string"
+        },
+        "Shipper": {
+          "$ref": "#/definitions/cargoCustomer"
+        },
+        "Consignee": {
+          "$ref": "#/definitions/cargoCustomer"
+        },
+        "Spec": {
+          "$ref": "#/definitions/cargoDeliverySpecification"
+        }
+      }
+    },
+    "cargoCarrierMovement": {
+      "type": "object",
+      "properties": {
+        "scheduleId": {
+          "type": "string"
+        },
+        "from": {
+          "$ref": "#/definitions/cargoLocation"
+        },
+        "to": {
+          "$ref": "#/definitions/cargoLocation"
+        }
+      }
+    },
+    "cargoCustomer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "cargoDeliverySpecification": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "From": {
+          "$ref": "#/definitions/cargoLocation"
+        },
+        "To": {
+          "$ref": "#/definitions/cargoLocation"
+        },
+        "ETA": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "cargoHandlingEvent": {
+      "type": "object",
+      "properties": {
+        "cargo": {
+          "$ref": "#/definitions/cargoCargo"
+        },
+        "eventType": {
+          "type": "string"
+        },
+        "CompleteTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "movement": {
+          "$ref": "#/definitions/cargoCarrierMovement"
+        }
+      }
+    },
+    "cargoLocation": {
+      "type": "object",
+      "properties": {
+        "port": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "v1CreateCargoResp": {
+      "type": "object",
+      "properties": {
+        "trackingId": {
+          "type": "string"
+        }
+      }
+    },
+    "v1GetCargoResp": {
+      "type": "object",
+      "properties": {
+        "cargo": {
+          "$ref": "#/definitions/cargoCargo"
+        }
+      }
+    },
+    "v1HandingEventResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
