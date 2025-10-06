@@ -2,7 +2,6 @@ package entity
 
 import "time"
 
-// TODO: 使用genproto生成的文件全部替代
 type Cargo struct {
 	TrackingID string
 	CustomerID string

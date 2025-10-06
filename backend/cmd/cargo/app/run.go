@@ -3,7 +3,7 @@
 // Version: v0.1.0
 // Version Date:
 
-package api
+package app
 
 import (
 	"context"

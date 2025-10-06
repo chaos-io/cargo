@@ -13,7 +13,7 @@ import (
 	nserver "github.com/chaos-io/gokit/server"
 
 	// This Service
-	"github.com/chaos-io/cargo/backend/modules/cargo/cmd/api"
+	"github.com/chaos-io/cargo/backend/cmd/cargo/app"
 )
 
 var gitHash, gitBranch, buildTime string
@@ -46,5 +46,5 @@ func main() {
 		logs.Infow("starting CargoServer", "gitHash", gitHash, "gitBranch", gitBranch, "buildTime", buildTime)
 	}
 
-	api.Run(conf)
+	app.Run(conf)
 }

@@ -2,19 +2,8 @@
 set -e
 
 server=cargo-server
-
-case "$1" in
-linux | windows | darwin) OS="$1" ;;
-mac) OS="darwin" ;;
-"") OS="" ;;
-*) echo "illegal option: $1" && exit 1 ;;
-esac
-
-case "$2" in
-amd64 | arm64) ARCH="$2" ;;
-"") ARCH="" ;;
-*) echo "illegal option: $2" && exit 1 ;;
-esac
+goos="" # darwin,linux
+goarch="" # amd64,arm64
 
 git_hash=$(git rev-list -1 HEAD)
 git_branch=$(git branch --show-current)
