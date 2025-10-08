@@ -1,0 +1,50 @@
+networks:
+  cargo-service-network:
+    driver: bridge
+
+services:
+  cargo-service-mysql:
+    image: ${IMAGE_PREFIX}mysql:5.7.37
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - ${SERVER_INSTALL_PATH}/cargo-service-mysql/data:/var/lib/mysql
+      - ${SERVER_INSTALL_PATH}/cargo-service-mysql/config:/etc/mysql/
+      - ${SERVER_INSTALL_PATH}/cargo-service-mysql/logs:/logs
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: "root@ROOT"
+      MYSQL_USER: "cargo-service"
+      MYSQL_PASSWORD: "cargo-service"
+      MYSQL_DATABASE: "cargo-service"
+      TZ: Asia/Shanghai
+    container_name: cargo-service-mysql
+
+  cargo-service-redis:
+    image: ${IMAGE_PREFIX}redis:7.4.2
+    restart: always
+    networks:
+      - cargo-service-network
+    ports:
+      - "6379:6379"
+    volumes:
+      - ${SERVER_INSTALL_PATH}/cargo-service-redis/data:/data
+      - ${SERVER_INSTALL_PATH}/cargo-service-redis/config/redis.conf:/etc/redis/redis.conf
+    container_name: cargo-service-redis
+    command: [ "redis-server", "/etc/redis/redis.conf", "--requirepass", "cargo-service" ]
+
+  cargo-service-server:
+    image: ${IMAGE_PREFIX}cargo-server:latest
+    restart: always
+    ports:
+      - "21101:21101"
+      - "21102:21102"
+      - "21103:21103"
+    networks:
+      - cargo-service-network
+    volumes:
+      - ${SERVER_INSTALL_PATH}/cargo-service/cargo-server:/logs
+      - ${SERVER_INSTALL_PATH}/cargo-service/configs:/configs
+      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: cargo-service-server

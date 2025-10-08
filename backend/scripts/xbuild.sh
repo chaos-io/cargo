@@ -1,13 +1,26 @@
 #!/bin/bash
 set -e
 
+CURRENT_DIR=$(cd "$(dirname "$0")" && pwd)
+SERVICE_DIR=$(cd "$CURRENT_DIR"/.. && pwd)
+
+image_prefix=
 server=cargo-server
-goos="" # darwin,linux
-goarch="" # amd64,arm64
+tag=latest
+
+cd "$SERVICE_DIR"/cmd && ./xbuild.sh linux amd64
 
 git_hash=$(git rev-list -1 HEAD)
 git_branch=$(git branch --show-current)
-build_time=$(date "+%Y-%m-%d %H:%M:%S %Z")
 
-set -x
-env CGO_ENABLED=0 GOOS="$OS" GOARCH="$ARCH" go build -o "$server" -ldflags "-s -w -X main.gitHash=$git_hash -X main.gitBranch=$git_branch -X 'main.buildTime=$build_time'"
+(
+  set -x
+  docker build -f "$SERVICE_DIR"/build/Dockerfile --platform linux/amd64 -t "$server:$tag" \
+    --build-arg GIT_BRANCH="$git_branch" --build-arg GIT_HASH="$git_hash" "$SERVICE_DIR"
+)
+
+if [ X"" != X"$image_prefix" ]; then
+  target="$image_prefix/$server:$tag"
+  docker tag "$server:$tag" "$target"
+  docker push "$target"
+fi
