@@ -1,9 +1,9 @@
-package handlers
+package app
 
 import (
 	"context"
 
-	"github.com/chaos-io/chaos/logs"
+	"github.com/chaos-io/chaos/pkg/logs"
 
 	// this service api
 	pb "github.com/chaos-io/cargo/genproto/cargo/v1"

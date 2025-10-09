@@ -3,7 +3,7 @@ package repo
 import (
 	"context"
 
-	"github.com/chaos-io/cargo/backend/modules/cargo/domain/entity"
+	"github.com/chaos-io/cargo/backend/modules/cargo-server/domain/entity"
 )
 
 type ICarrierMovementRepo interface {

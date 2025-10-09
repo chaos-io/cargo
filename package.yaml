@@ -2,13 +2,13 @@ package:
   name: cargo
   version: v0.1.0
   authors:
-    - author: 
-      email: 
-      organization: 
+    - author:
+      email:
+      organization:
   dependencies:
     chaos:
       repository: github.com/chaos-io/chaos
-      version: v0.0.0-20250722065453-4794df450c1d
+      version: v0.1.3-0.20251008134412-16a6431381af
     chaos.core:
       repository: github.com/chaos-io/core/go
       version: v0.0.0-20251006124144-74c83954cdc8
